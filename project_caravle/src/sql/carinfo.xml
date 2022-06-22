@@ -7,6 +7,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getCarinfoList" resultType="carinfodto">
 	SELECT * FROM MOCAR_CARINFO
 	</select>
+	
+	<select id="getCarFromCarType" resultType="carinfodto">
+	SELECT * FROM MOCAR_CARINFO WHERE cartype = #{cartype}
+	</select>
 
 </mapper>
 

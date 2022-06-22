@@ -18,10 +18,16 @@ public class CarinfoDAO {
 	public List<CarinfoDTO> getCarinfoList(){
 		System.out.println("getCarinfoList 도착");
 		List<CarinfoDTO> carinfoList = sqlsession.selectList("Carinfo.getCarinfoList");
+																
 		System.out.println("carinfoList 도착");
 		
 		return carinfoList;
 		
+	}
+	
+	public List<CarinfoDTO> getCarFromCarType(int cartype){
+		List<CarinfoDTO> carinfoList = sqlsession.selectList("Carinfo.getCarFromCarType",cartype);
+		return carinfoList;
 	}
 	
 }

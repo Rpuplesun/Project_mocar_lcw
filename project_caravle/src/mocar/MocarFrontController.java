@@ -29,28 +29,17 @@ public class MocarFrontController extends HttpServlet {
 		ActionForward forward = null;
 		
 		switch (requestURI) {
+		case "/rent2.mc":
+			forward = new Rent2().execute(req, resp);
+			break;
 		case "/CarinfoList.mc":
 			System.out.println("/CarinfoList.mc 도착");
 			forward = new CarinfoListAction().execute(req, resp);
 			break;
-//		case "/board/BoardWrite.bo":
-////			forward = new ActionForward(true, req.getContextPath() + "/app/board/boardwrite.jsp");
-//			break;
-//		case "/board/BoardWriteOk.bo":
-////			forward = new BoardWriteOkAction().execute(req, resp);
-//			break;
-//		case "/board/BoardView.bo":
-////			forward = new BoardViewAction().execute(req, resp);
-//			break;
-//		case "/board/AddReply.bo":
-////			forward = new AddReplyAction().execute(req, resp);
-//			break;
-//		case "/board/UpdateReply.bo":
-////			forward = new UpdateReplyAction().execute(req, resp);
-//			break;
-//		case "/board/DeleteReply.bo":
-////			forward = new DeleteReplyAction().execute(req, resp);
-//			break;
+		case "/carinfoListFindToType.mc":
+		
+			forward = new CarinfoListFindToTypeOk().execute(req, resp);
+			break;
 		}
 		
 		if( forward != null ){

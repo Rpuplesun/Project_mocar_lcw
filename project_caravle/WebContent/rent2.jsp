@@ -35,11 +35,12 @@
         <p>
 <!--           <a href="#" class="btn btn-primary my-4 calender" >Main call to action</a><br> -->
           <a href="${pageContext.request.contextPath}/CarinfoList.mc" class="btn btn-secondary my-3">전체</a>
-          <a href="#" class="btn btn-secondary my-3">전기</a>
-          <a href="#" class="btn btn-secondary my-3">경형</a>
-          <a href="#" class="btn btn-secondary my-3">준중형/중형</a>
-          <a href="#" class="btn btn-secondary my-3">대형/SUV</a>
-          <a href="#" class="btn btn-secondary my-3">수입/승합RV</a>
+          <a href="${pageContext.request.contextPath}/carinfoListFindToType.mc?cartype=1" class="btn btn-secondary my-3">전기</a>
+          <a href="${pageContext.request.contextPath}/carinfoListFindToType.mc?cartype=2" class="btn btn-secondary my-3">경형</a>
+          <a href="${pageContext.request.contextPath}/carinfoListFindToType.mc?cartype=3" class="btn btn-secondary my-3">준중형/중형</a>
+          <a href="${pageContext.request.contextPath}/carinfoListFindToType.mc?cartype=4" class="btn btn-secondary my-3">대형/SUV</a>
+          <a href="${pageContext.request.contextPath}/carinfoListFindToType.mc?cartype=5" class="btn btn-secondary my-3">수입/승합RV</a>
+         
         </p>
       </div>
     </div>
@@ -57,7 +58,7 @@
 		        <div class="col">
 		          <div class="card shadow-sm"> 
 		            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding:10px; border-bottom: 1px solid #55595c; xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-		            <title>Placeholder</title><image href="https://trive-attachment.s3.ap-northeast-2.amazonaws.com/subscription/car/7a0eeda7-31b1-4940-97d7-e5e8d3dc9223.jpeg" height="100%" width="100%"/>
+		            <title>${carinfo.carname }</title><image href="${pageContext.request.contextPath}/img/car/${carinfo.carphoto}" height="100%" width="100%"/>
 		            <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
 		
 		            <div class="card-body">
