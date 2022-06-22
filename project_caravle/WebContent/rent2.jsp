@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <meta charset="UTF-8">
 
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"  -->
@@ -7,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900|Roboto:400,500,700,900&display=swap"
       rel="stylesheet" />
 <link rel="stylesheet" href="/css/style2.css">
+
 <!-- datapicker 적용 -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -15,6 +18,9 @@
 <!-- datapicker 적용 -->
 
 <%@ include file="/mocar/header.jsp" %>
+
+<c:set var="carinfoList" value="${requestScope.carinfoList }"/>
+
 <div class="col">
   <section class="text-center container rentmain">
     <div class="row py-lg-5">
@@ -28,7 +34,7 @@
 		 
         <p>
 <!--           <a href="#" class="btn btn-primary my-4 calender" >Main call to action</a><br> -->
-          <a href="#" class="btn btn-secondary my-3">전체</a>
+          <a href="${pageContext.request.contextPath}/CarinfoList.mc" class="btn btn-secondary my-3">전체</a>
           <a href="#" class="btn btn-secondary my-3">전기</a>
           <a href="#" class="btn btn-secondary my-3">경형</a>
           <a href="#" class="btn btn-secondary my-3">준중형/중형</a>
@@ -43,188 +49,37 @@
     <div class="container">
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col">
-          <div class="card shadow-sm"> 
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding:10px; border-bottom: 1px solid #55595c; xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title><image href="https://trive-attachment.s3.ap-northeast-2.amazonaws.com/subscription/car/7a0eeda7-31b1-4940-97d7-e5e8d3dc9223.jpeg" height="100%" width="100%"/>
-            <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
+      
+      <!-- 차량정보 div 반복 -->
+      
 
-            <div class="card-body">
-              <p class="card-text fw-bold fs-5" style="margin-bottom:0;">Flying Spur V8</p>
-              <p class="car_name" style="margin-top:0; margin-bottom:0;">Bentley . Flying Spur</p>
-              <p class="car_year" style="margin-top:0; margin-bottom:0;">2021</p>
-              <p class="car_price text-end fs-4 fw-bold" style="margin-top:0;">200,000원 / 일 <span class="car_price_sub">보험료 미포함</span> </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">차량사진보기</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">예약신청</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm"> 
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding:10px; border-bottom: 1px solid #55595c" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title><image href="https://trive-attachment.s3.ap-northeast-2.amazonaws.com/subscription/car/7a0eeda7-31b1-4940-97d7-e5e8d3dc9223.jpeg" height="100%" width="100%"/>
-            <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
+      		<c:forEach var="carinfo" items="${carinfoList }">
+		        <div class="col">
+		          <div class="card shadow-sm"> 
+		            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding:10px; border-bottom: 1px solid #55595c; xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+		            <title>Placeholder</title><image href="https://trive-attachment.s3.ap-northeast-2.amazonaws.com/subscription/car/7a0eeda7-31b1-4940-97d7-e5e8d3dc9223.jpeg" height="100%" width="100%"/>
+		            <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
+		
+		            <div class="card-body">
+		              <p class="card-text fw-bold fs-5" style="margin-bottom:0;">${carinfo.carname }</p>
+		              <p class="car_name" style="margin-top:0; margin-bottom:0;">${carinfo.carname } . ${carinfo.carname_sub }</p>
+		              <p class="car_year" style="margin-top:0; margin-bottom:0;">${carinfo.caryear }</p>
+		              <p class="car_price text-end fs-4 fw-bold" style="margin-top:0;">${carinfo.carprice }원 / 일 <span class="car_price_sub">보험료 미포함</span> </p>
+		              <div class="d-flex justify-content-between align-items-center">
+		                <div class="btn-group">
+		                  <button type="button" class="btn btn-sm btn-outline-secondary">차량사진보기</button>
+		                  <button type="button" class="btn btn-sm btn-outline-secondary">예약신청</button>
+		                </div>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		      </c:forEach> 
 
-            <div class="card-body">
-              <p class="card-text fw-bold fs-5" style="margin-bottom:0;">Flying Spur V8</p>
-              <p class="car_name" style="margin-top:0; margin-bottom:0;">Bentley . Flying Spur</p>
-              <p class="car_year" style="margin-top:0; margin-bottom:0;">2021</p>
-              <p class="car_price text-end fs-4 fw-bold" style="margin-top:0;">200,000원 / 일 <span class="car_price_sub">보험료 미포함</span> </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">차량사진보기</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">예약신청</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm"> 
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding:10px; border-bottom: 1px solid #55595c" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title><image href="https://trive-attachment.s3.ap-northeast-2.amazonaws.com/subscription/car/7a0eeda7-31b1-4940-97d7-e5e8d3dc9223.jpeg" height="100%" width="100%"/>
-            <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
 
-            <div class="card-body">
-              <p class="card-text fw-bold fs-5" style="margin-bottom:0;">Flying Spur V8</p>
-              <p class="car_name" style="margin-top:0; margin-bottom:0;">Bentley . Flying Spur</p>
-              <p class="car_year" style="margin-top:0; margin-bottom:0;">2021</p>
-              <p class="car_price text-end fs-4 fw-bold" style="margin-top:0;">200,000원 / 일 <span class="car_price_sub">보험료 미포함</span> </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">차량사진보기</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">예약신청</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card shadow-sm"> 
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding:10px; border-bottom: 1px solid #55595c" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title><image href="https://trive-attachment.s3.ap-northeast-2.amazonaws.com/subscription/car/7a0eeda7-31b1-4940-97d7-e5e8d3dc9223.jpeg" height="100%" width="100%"/>
-            <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
-
-            <div class="card-body">
-              <p class="card-text fw-bold fs-5" style="margin-bottom:0;">Flying Spur V8</p>
-              <p class="car_name" style="margin-top:0; margin-bottom:0;">Bentley . Flying Spur</p>
-              <p class="car_year" style="margin-top:0; margin-bottom:0;">2021</p>
-              <p class="car_price text-end fs-4 fw-bold" style="margin-top:0;">200,000원 / 일 <span class="car_price_sub">보험료 미포함</span> </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">차량사진보기</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">예약신청</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm"> 
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding:10px; border-bottom: 1px solid #55595c" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title><image href="https://trive-attachment.s3.ap-northeast-2.amazonaws.com/subscription/car/7a0eeda7-31b1-4940-97d7-e5e8d3dc9223.jpeg" height="100%" width="100%"/>
-            <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
-
-            <div class="card-body">
-              <p class="card-text fw-bold fs-5" style="margin-bottom:0;">Flying Spur V8</p>
-              <p class="car_name" style="margin-top:0; margin-bottom:0;">Bentley . Flying Spur</p>
-              <p class="car_year" style="margin-top:0; margin-bottom:0;">2021</p>
-              <p class="car_price text-end fs-4 fw-bold" style="margin-top:0;">200,000원 / 일 <span class="car_price_sub">보험료 미포함</span> </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">차량사진보기</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">예약신청</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm"> 
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding:10px; border-bottom: 1px solid #55595c" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title><image href="https://trive-attachment.s3.ap-northeast-2.amazonaws.com/subscription/car/7a0eeda7-31b1-4940-97d7-e5e8d3dc9223.jpeg" height="100%" width="100%"/>
-            <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
-
-            <div class="card-body">
-              <p class="card-text fw-bold fs-5" style="margin-bottom:0;">Flying Spur V8</p>
-              <p class="car_name" style="margin-top:0; margin-bottom:0;">Bentley . Flying Spur</p>
-              <p class="car_year" style="margin-top:0; margin-bottom:0;">2021</p>
-              <p class="car_price text-end fs-4 fw-bold" style="margin-top:0;">200,000원 / 일 <span class="car_price_sub">보험료 미포함</span> </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">차량사진보기</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">예약신청</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-       <div class="col">
-          <div class="card shadow-sm"> 
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding:10px; border-bottom: 1px solid #55595c" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title><image href="https://trive-attachment.s3.ap-northeast-2.amazonaws.com/subscription/car/7a0eeda7-31b1-4940-97d7-e5e8d3dc9223.jpeg" height="100%" width="100%"/>
-            <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
-
-            <div class="card-body">
-              <p class="card-text fw-bold fs-5" style="margin-bottom:0;">Flying Spur V8</p>
-              <p class="car_name" style="margin-top:0; margin-bottom:0;">Bentley . Flying Spur</p>
-              <p class="car_year" style="margin-top:0; margin-bottom:0;">2021</p>
-              <p class="car_price text-end fs-4 fw-bold" style="margin-top:0;">200,000원 / 일 <span class="car_price_sub">보험료 미포함</span> </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">차량사진보기</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">예약신청</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-       <div class="col">
-          <div class="card shadow-sm"> 
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding:10px; border-bottom: 1px solid #55595c" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title><image href="https://trive-attachment.s3.ap-northeast-2.amazonaws.com/subscription/car/7a0eeda7-31b1-4940-97d7-e5e8d3dc9223.jpeg" height="100%" width="100%"/>
-            <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
-
-            <div class="card-body">
-              <p class="card-text fw-bold fs-5" style="margin-bottom:0;">Flying Spur V8</p>
-              <p class="car_name" style="margin-top:0; margin-bottom:0;">Bentley . Flying Spur</p>
-              <p class="car_year" style="margin-top:0; margin-bottom:0;">2021</p>
-              <p class="car_price text-end fs-4 fw-bold" style="margin-top:0;">200,000원 / 일 <span class="car_price_sub">보험료 미포함</span> </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">차량사진보기</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">예약신청</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm"> 
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding:10px; border-bottom: 1px solid #55595c" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title><image href="https://trive-attachment.s3.ap-northeast-2.amazonaws.com/subscription/car/7a0eeda7-31b1-4940-97d7-e5e8d3dc9223.jpeg" height="100%" width="100%"/>
-            <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
-
-            <div class="card-body">
-              <p class="card-text fw-bold fs-5" style="margin-bottom:0;">Flying Spur V8</p>
-              <p class="car_name" style="margin-top:0; margin-bottom:0;">Bentley . Flying Spur</p>
-              <p class="car_year" style="margin-top:0; margin-bottom:0;">2021</p>
-              <p class="car_price text-end fs-4 fw-bold" style="margin-top:0;">200,000원 / 일 <span class="car_price_sub">보험료 미포함</span> </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">차량사진보기</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">예약신청</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+       
+       
+       
       </div>
     </div>
     
