@@ -37,8 +37,15 @@ public class MocarFrontController extends HttpServlet {
 			forward = new CarinfoListAction().execute(req, resp);
 			break;
 		case "/carinfoListFindToType.mc":
-		
 			forward = new CarinfoListFindToTypeOk().execute(req, resp);
+			break;
+		case "/CarinfoList/CarRentview.mc":
+			System.out.println("ddddddddddddd");
+			forward = new CarRentViewAction().execute(req, resp);
+			break;
+		case "/CarRent.mc":
+			System.out.println("cccccccccccccc");
+			forward = new CarRentAction().execute(req, resp);; // 마이페이지 or 예약 상세페이지 경로 변경필요
 			break;
 		}
 		

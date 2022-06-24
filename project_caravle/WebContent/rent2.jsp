@@ -10,38 +10,34 @@
       rel="stylesheet" />
 <link rel="stylesheet" href="/css/style2.css">
 
-<!-- datapicker 적용 -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<!-- datapicker 적용 -->
-
+<!-- header -->
 <%@ include file="/mocar/header.jsp" %>
 
 <c:set var="carinfoList" value="${requestScope.carinfoList }"/>
+<c:set var="totalCnt" value="${requestScope.totalCnt }"/>
+<c:set var="nowpage" value="${requestScope.nowPage }"/>
+<c:set var="totalPage" value="${requestScope.totalPage }"/>
+<c:set var="startPage" value="${requestScope.startPage }"/>
+<c:set var="endPage" value="${requestScope.endPage }"/>
 
 <div class="col">
   <section class="text-center container rentmain">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">렌트예약</h1>
-        <p class="lead text-muted">날짜와 차종을 선택 후 원하시는 차량을 선택해 주세요.</p>
-        
-        <!-- 달력폼 시작 -->
-        <input type="text" id="demo" class="my-4 text-secondary" name="demo" value="" />
-		 <!-- 달력폼 끝 -->
-		 
+        <p class="lead text-muted">원하시는 차량을 선택 후 예약신청 버튼을 클릭해 주세요.</p>
+ 
+		 <!-- 차량 카테고리 시작 -->
         <p>
-<!--           <a href="#" class="btn btn-primary my-4 calender" >Main call to action</a><br> -->
           <a href="${pageContext.request.contextPath}/CarinfoList.mc" class="btn btn-secondary my-3">전체</a>
           <a href="${pageContext.request.contextPath}/carinfoListFindToType.mc?cartype=1" class="btn btn-secondary my-3">전기</a>
           <a href="${pageContext.request.contextPath}/carinfoListFindToType.mc?cartype=2" class="btn btn-secondary my-3">경형</a>
           <a href="${pageContext.request.contextPath}/carinfoListFindToType.mc?cartype=3" class="btn btn-secondary my-3">준중형/중형</a>
           <a href="${pageContext.request.contextPath}/carinfoListFindToType.mc?cartype=4" class="btn btn-secondary my-3">대형/SUV</a>
           <a href="${pageContext.request.contextPath}/carinfoListFindToType.mc?cartype=5" class="btn btn-secondary my-3">수입/승합RV</a>
-         
         </p>
+        <!-- 차량 카테고리 종료 -->
+        
       </div>
     </div>
   </section>
@@ -51,9 +47,7 @@
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       
-      <!-- 차량정보 div 반복 -->
-      
-
+      <!-- 차량정보 div 반복 시작 -->
       		<c:forEach var="carinfo" items="${carinfoList }">
 		        <div class="col">
 		          <div class="card shadow-sm"> 
@@ -68,75 +62,64 @@
 		              <p class="car_price text-end fs-4 fw-bold" style="margin-top:0;">${carinfo.carprice }원 / 일 <span class="car_price_sub">보험료 미포함</span> </p>
 		              <div class="d-flex justify-content-between align-items-center">
 		                <div class="btn-group">
-		                  <button type="button" class="btn btn-sm btn-outline-secondary">차량사진보기</button>
-		                  <button type="button" class="btn btn-sm btn-outline-secondary">예약신청</button>
+		                   <a href="${pageContext.request.contextPath }/CarinfoList/CarRentview.mc?carnum=${carinfo.carnum}" class="ls-modal btn btn-sm btn-outline-secondary" 
+		                    >예약신청</a>
+
 		                </div>
 		              </div>
 		            </div>
 		          </div>
 		        </div>
 		      </c:forEach> 
-
-
-       
-       
-       
+		<!-- 차량정보 div 반복 종료 -->
+		
       </div>
     </div>
     
+    <!-- 페이징 시작 -->
 		 <nav aria-label="Page navigation example">
 		  <ul class="pagination">
 		    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
+		    
+			    <c:if test="${nowPage > 1 }">
+			    	<a class="page-link" href="${pageContext.request.contextPath }/CarinfoList.mc?page=${nowPage-1}" aria-label="Previous">
+		        	<span aria-hidden="true">&laquo;</span>
+		      		</a>
+			    </c:if>
+			    
 		    </li>
-			    <li class="page-item"><a class="page-link car-page" href="#">1</a></li>
-			    <li class="page-item"><a class="page-link car-page" href="#">2</a></li>
-			    <li class="page-item"><a class="page-link car-page" href="#">3</a></li>
+		    
+		    <c:forEach var="i" begin="${startPage }" end="${endPage }">
+		    	<c:choose>
+		    		<c:when test="${i == nowPage }"> 
+		    			<li class="page-item page-link car-page">${i }</li>
+		    		</c:when>
+		    		<c:otherwise>  
+		    			<li class="page-item"><a class="page-link car-page" href="${pageContext.request.contextPath }/CarinfoList.mc?page=${i}">${i }</a></li>
+		    		</c:otherwise>
+		    	</c:choose>
+		    </c:forEach>
+		    
 			    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
+			    
+			    <c:if test="${nowPage < totalPage }">
+			    	<a class="page-link" href="${pageContext.request.contextPath }/CarinfoList.mc?page=${nowPage+1}" aria-label="Next">
+		       		<span aria-hidden="true">&raquo;</span>
+		      		</a>
+			   	</c:if>
+			   	
 		    </li>
 		  </ul>
 		</nav>
+	<!-- 페이징 종료 -->
+		
   </div>
 </div>
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"  -->
-<!-- integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
 
-<script>
-
-$(function () {
-    $('#demo').daterangepicker({
-        "locale": {
-            "format": "YYYY-MM-DD",
-            "separator": " ~ ",
-            "applyLabel": "확인",
-            "cancelLabel": "취소",
-            "fromLabel": "From",
-            "toLabel": "To",
-            "customRangeLabel": "Custom",
-            "weekLabel": "W",
-            "daysOfWeek": ["월", "화", "수", "목", "금", "토", "일"],
-            "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-            "firstDay": 1
-        },
-        timePicker: true,
-        timePicker24Hour: true,
-        "drops": "down"
-    }, function (start, end, label) {
-        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-    });
-});
-
-</script>
-
-<footer>
+<!-- footer -->
 <%@ include file="mocar/footer.jsp" %>
-</footer>
+
 
 
 

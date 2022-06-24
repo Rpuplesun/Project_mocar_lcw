@@ -56,7 +56,7 @@
 			</a>
 			<hr>
 			<ul class=" nav nav-pills flex-column mb-auto" id="navbarToggler8">
-				<li class="nav-item"><a href="../rent2.jsp" class="nav-link link-dark"
+				<li class="nav-item"><a href="${pageContext.request.contextPath}/CarinfoList.mc" class="nav-link link-dark"
 					aria-current="page"> 렌트예약 </a></li>
 				<li class="nav-item"><a href="#" class="nav-link link-dark">
 						공지사항 </a></li>
