@@ -3,8 +3,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <meta charset="UTF-8">
+
+<!-- header -->
 <%@ include file="/mocar/header.jsp" %>
 <link rel="stylesheet" href="/css/style2.css">
+
 <!-- datapicker 적용 -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -14,14 +17,15 @@
 
 <!-- 변수 선언 -->
 <c:set var="carinfo" value="${requestScope.carinfoList }" />
-<c:set var="rentnum"><%=java.lang.Math.round(java.lang.Math.random()*123456) %></c:set>
 
-<!-- 차량정보 가져오기 -->
+<!-- 차량정보 및 렌트 -->
 <div class="col">
 	<section class="text-center container rentmain">
 		<div class="row py-lg-5">
 			<div class="col-lg-6 col-md-8 mx-auto">
 		            <h4>날짜를 선택 후 예약하기 버튼을 눌러주세요</h4> 
+		            
+		            <!-- 특정 차량 번호 가져오기 시작 -->
 			<svg class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding:10px; margin-bottom: 10px; border-bottom: 1px solid #55595c; xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
 		            <title>${carinfo.carname }</title><image href="${pageContext.request.contextPath}/img/car/${carinfo.carphoto}" height="100%" width="100%"/>
 		            <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
@@ -35,7 +39,9 @@
 			            	<p class=" fw-bold fs-3" style="margin-bottom:0;">${carinfo.carprice }원 / 일</p>
 			            </div>
 		            </div>
-		            <!-- 렌트 절차 안내 -->
+		            <!-- 특정 차량 번호 가져오기 끝 -->
+		            
+		            <!-- 렌트 절차 안내 시작 -->
 		            <div style="padding:10px; padding-left: 0; border-bottom: 1px solid #55595c;">
 		            	<p class="text-start fw-bold fs-5" style="margin-bottom:10px;">렌트 절차</p>
 		            	<p class="text-start fw-normal fs-6" >1. 렌트를 신청하시면, 선택하신 자동차의 상세한 사진을 직접 촬영하여 보내드립니다.</p>
@@ -46,17 +52,17 @@
 		            	<p class="text-start fw-normal fs-6" >6. 렌트 기간이 끝나면 정해진 장소에 반납하시면 됩니다.</p>
 		            </div>
 		            <div style="padding:10px;">
+		            <!-- 렌트 절차 안내 끝 -->
  					
- 					<!-- 날짜 및 차량정보 submit -->
+ 					<!-- 날짜 및 차량정보 submit 시작 -->
 						<div> 
 				            <form action="${pageContext.request.contextPath}/CarRent.mc" name="carrentForm" method="post">
-				            	<input type="hidden" name="rentnum" value="${rentnum }">
 				            	<input type="hidden" name="carnum" value="${carinfo.carnum }">
 				       	 		<input type="text" id="demo" class="my-4 text-secondary" name="rentday" value="" />
-<!-- 				            	<input type="submit" class="ls-modal btn btn-sm btn-outline-secondary"  value="예약하기"> -->
-				            	<a class="ls-modal btn btn-sm btn-outline-secondary" href="javascript:document.carrentForm.submit()">예약하기</a>
+				            	<a class="ls-modal btn btn-sm btn-outline-secondary" href="javascript:document.carrentForm.submit()">예약하기</a> 
 				            </form>
-				        </div>    
+				        </div>
+				    <!-- 날짜 및 차량정보 submit 끝 -->        <!-- 예약하기 버튼 클릭 시 성공시 예약 상세페이지 이동 필요 -->
 		            </div>
 		            
 			</div>
@@ -64,16 +70,17 @@
 	</section>
 </div>
 
-
+<!-- footer -->
 <%@ include file="mocar/footer.jsp" %>
 
 <script>
 
+// 달력 function
 $(function () {
     $('#demo').daterangepicker({
         "locale": {
             "format": "YYYY-MM-DD",
-            "separator": " ~ ",
+            "separator": "~",
             "applyLabel": "확인",
             "cancelLabel": "취소",
             "fromLabel": "From",

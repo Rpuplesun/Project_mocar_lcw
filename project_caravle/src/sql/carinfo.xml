@@ -26,8 +26,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="getCarRent" parameterType="carrentdto">
-		INSERT INTO MOCAR_CARRENT VALUES (#{rentnum}, #{rentday}, #{carnum})
+		INSERT INTO MOCAR_CARRENT VALUES (#{rentUUID}, #{rentstartday}, #{rentendday}, #{carnum})
 	</insert>
+	
+	<select id="getRentNum" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(CARNUM)  FROM MOCAR_CARRENT
+		WHERE rentstartday BETWEEN TO_DATE(#{rentstartday}, 'YYYY-MM-DD') 
+        AND TO_DATE(#{rentendday}, 'YYYY-MM-DD') AND CARNUM = #{carnum}
+	</select>
 </mapper>
 
 

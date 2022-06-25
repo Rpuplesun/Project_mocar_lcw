@@ -1,5 +1,6 @@
 package dao;
 
+// MOCAR_CARINFO 테이블 DTO
 public class CarinfoDTO {
 	private int carnum;
 	private int cartype;

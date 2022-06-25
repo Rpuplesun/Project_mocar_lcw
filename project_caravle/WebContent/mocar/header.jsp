@@ -56,6 +56,8 @@
 			</a>
 			<hr>
 			<ul class=" nav nav-pills flex-column mb-auto" id="navbarToggler8">
+			
+				<!-- 렌트예약 클릭 시 이동링크 mc로 변경 -->
 				<li class="nav-item"><a href="${pageContext.request.contextPath}/CarinfoList.mc" class="nav-link link-dark"
 					aria-current="page"> 렌트예약 </a></li>
 				<li class="nav-item"><a href="#" class="nav-link link-dark">
